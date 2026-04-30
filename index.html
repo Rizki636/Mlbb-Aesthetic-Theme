@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Access</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: #00ff00;
+    font-family: monospace;
+}
+
+.container {
+    padding: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    background: #111;
+    border: 1px solid #00ff00;
+    margin-top: 20px;
+}
+
+.progress {
+    width: 0%;
+    height: 20px;
+    background: #00ff00;
+}
+
+.glitch {
+    color: red;
+    font-size: 24px;
+    animation: blink 0.2s infinite;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.panel {
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="text">Connecting to device...</div>
+
+    <div class="progress-bar">
+        <div class="progress" id="bar"></div>
+    </div>
+
+    <div id="log" style="margin-top:20px;"></div>
+</div>
+
+<script>
+let progress = 0;
+let bar = document.getElementById("bar");
+let text = document.getElementById("text");
+let log = document.getElementById("log");
+
+let messages = [
+    "Mengakses sistem...",
+    "Mencari data pribadi...",
+    "Membaca pesan...",
+    "Mengambil file...",
+    "Sinkronisasi server...",
+    "Mengaktifkan kamera...",
+    "Mengakses mikrofon...",
+    "Copying important data..."
+];
+
+let interval = setInterval(() => {
+    progress += Math.random() * 8;
+    if (progress > 100) progress = 100;
+
+    bar.style.width = progress + "%";
+
+    if (Math.random() > 0.6) {
+        let msg = messages[Math.floor(Math.random() * messages.length)];
+        log.innerHTML += "> " + msg + "<br>";
+    }
+
+    if (progress >= 100) {
+        clearInterval(interval);
+
+        text.innerHTML = "ACCESS GRANTED";
+        text.classList.add("glitch");
+
+        setTimeout(showHackedScreen, 2000);
+    }
+
+}, 300);
+
+function showHackedScreen() {
+    document.body.innerHTML = `
+    <div class="panel">
+        <h2>REMOTE DEVICE CONTROL</h2>
+        <p>> Device: Android</p>
+        <p>> Status: Connected</p>
+        <p>> Location: Detected</p>
+        <p>> Camera: Active</p>
+        <p>> Microphone: Active</p>
+        <p>> File Access: Granted</p>
+        <br>
+        <p id="download">> Downloading data</p>
+    </div>
+    `;
+
+    setTimeout(animateDots, 500);
+    setTimeout(showDeface, 6000);
+}
+
+function animateDots() {
+    let el = document.getElementById("download");
+    let dots = "";
+
+    setInterval(() => {
+        dots += ".";
+        if (dots.length > 3) dots = "";
+
+        el.innerHTML = "> Downloading data" + dots;
+    }, 500);
+}
+
+function showDeface() {
+    document.body.innerHTML = `
+    <style>
+    body {
+        background: black;
+        font-family: monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        padding: 20px;
+        color: #00ff00;
+    }
+
+    .title {
+        text-align: center;
+        color: red;
+        font-size: 32px;
+        margin-bottom: 10px;
+        animation: blink 0.2s infinite;
+    }
+
+    .logo {
+        display: block;
+        margin: 10px auto;
+        width: 100px;
+        filter: drop-shadow(0 0 10px red);
+    }
+
+    .terminal {
+        border: 1px solid #00ff00;
+        padding: 15px;
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .red {
+        color: red;
+    }
+
+    @keyframes blink {
+        0% {opacity: 1;}
+        50% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    </style>
+
+    <div class="wrapper">
+        <div class="title">HACKED BY MR. X</div>
+
+        <img class="logo" src="https://i.imgur.com/3ZQ3Z7M.png">
+
+        <div class="terminal">
+            <div>> Initializing remote session...</div>
+            <div>> Bypassing security...</div>
+            <div>> Access granted</div>
+            <br>
+
+            <div>> Device: Android</div>
+            <div>> Status: Connected</div>
+            <div>> Encryption: Disabled</div>
+            <br>
+
+            <div>> Extracting data...</div>
+            <div>> Photos: OK</div>
+            <div>> Contacts: OK</div>
+            <div>> Messages: OK</div>
+            <div>> Storage: OK</div>
+            <br>
+
+            <div id="progress">> Uploading to server... 0%</div>
+            <br>
+
+            <div class="red">[ WARNING ] DO NOT TURN OFF DEVICE</div>
+            <div class="red">[ ALERT ] CAMERA ACTIVE</div>
+        </div>
+    </div>
+    `;
+
+    startProgress();
+}
+
+function startProgress() {
+    let el = document.getElementById("progress");
+    let percent = 0;
+
+    let interval = setInterval(() => {
+        percent += Math.floor(Math.random() * 5) + 1;
+
+        if (percent >= 100) {
+            percent = 100;
+            clearInterval(interval);
+
+            el.innerHTML = "> UPLOADING TO SERVER... 100%";
+
+            setTimeout(revealPrank, 4000);
+        } else {
+            el.innerHTML = "> UPLOADING TO SERVER... " + percent + "%";
+        }
+
+    }, 300);
+}
+
+
+</script>
+
+</body>
+</html>
